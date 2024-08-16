@@ -1,0 +1,80 @@
+<div
+  class="max-w-screen-160 mx-auto h-full flex flex-col px-10 py-6 gap-4 mt-6"
+>
+  <div class="flex justify-between flex-wrap gap-4">
+    <div class="flex items-center">
+      <mat-icon
+        @scaleIn
+        class="text-2xl text-am-main-blue"
+        [fontIcon]="iconUser$"
+      >
+      </mat-icon>
+      <div
+        @fadeInRight
+        class="text-3xl font-medium italic text-am-main-blue-dark ml-2"
+      >
+        Usuarios
+      </div>
+    </div>
+    <div class="flex gap-2 items-center w-full smd:w-fit justify-end flex-wrap">
+      <div class="w-full sm:w-fit">
+        <app-search-box
+          [searchOptions]="component$.searchOptions"
+          (search)="search($event)"
+          [currentValue]="component$.filters.textFilter"
+        />
+      </div>
+      <!-- <div>
+        <app-export-excel
+          [url]="getDownloadUrl"
+          [getInputs]="component$.getInputs"
+          [filename]="component$.filename"
+        />
+      </div> -->
+    </div>
+  </div>
+  <div class="flex gap-2 justify-between flex-wrap">
+    <div class="flex gap-2 items-end flex-wrap">
+      <ng-container>
+        <div class="w-60">
+          <app-filter-date-range-ymd
+            label="Fecha de creación"
+            (rangeDate)="searchDateRange($event)"
+            [start]="component$.filters.startDate!"
+            [end]="component$.filters.endDate!"
+          />
+        </div>
+      </ng-container>
+      <div>
+        <app-filter-menu-states
+          [menuFilter]="component$.menuItems"
+          [initfilters]="component$.filters.stateFilter"
+          [reset]="resetChecks"
+          (dataChecked)="setDataFilterStates($event)"
+        />
+      </div>
+      <div>
+        <app-split-button
+          [configButtons]="component$.filterButtons"
+          (doThisFunction)="resetButton($event)"
+        />
+      </div>
+    </div>
+    <div class="flex gap-2 items-end">
+      <app-generic-button
+        [infoButton]="component$.actionButtonUser"
+        (clickButton)="newUser()"
+      />
+    </div>
+  </div>
+  <div class="card h-full shadow-xl rounded-3xl overflow-hidden flex-auto">
+    <app-list-table
+      (rowClick)="rowClick($event)"
+      [service]="userService"
+      [columns]="component$.tableColumns"
+      [sortBy]="component$.initialSort"
+      [sortDir]="component$.initalSortDir"
+      [getInputs]="component$.getInputs"
+    />
+  </div>
+</div>

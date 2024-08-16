@@ -1,0 +1,35 @@
+<form (ngSubmit)="equipmentTypeSave()" [formGroup]="form$">
+    <div mat-dialog-title class="flex justify-between">
+      <h2 class="headline m-0 text-xl text-accent">
+        <strong class="text-am-main-blue-dark">{{
+          data.mode == "register" ? "Nuevo Tipo de Equipo" : "Actualizar Tipo de Equipo"
+        }}</strong>
+      </h2>
+    </div>
+    <mat-dialog-content>
+      <mat-form-field appearance="outline" class="w-full pt-1">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="state">
+          <mat-option value="1">Activo</mat-option>
+          <mat-option value="0">Inactivo</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>CANCELAR</button>
+      <button
+        color="purple"
+        class="bg-accent text-accent-contrast"
+        mat-button
+        type="submit"
+        [disabled]="form$.invalid"
+      >
+        GUARDAR
+      </button>
+    </mat-dialog-actions>
+  </form>
+  

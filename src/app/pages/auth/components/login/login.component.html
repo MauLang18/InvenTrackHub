@@ -1,0 +1,61 @@
+<div class="w-full h-full login-fondo">
+  <div class="login">
+    <div class="avatar">
+      <img src="assets/landscape.jpg" />
+    </div>
+    <h2>Iniciar Sesión</h2>
+    <h3>Bienvenido a tu sistema de ventas</h3>
+    <br />
+    <form [formGroup]="form" class="login-form" (ngSubmit)="login()">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Usuario</mat-label>
+        <input
+          matInput
+          placeholder="Ingrese el usuario"
+          formControlName="userName"
+        />
+        <mat-icon
+          matSuffix
+          [fontIcon]="icUsername"
+          class="text-am-main-blue-dark"
+        ></mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Contraseña</mat-label>
+        <input
+          [type]="inputType"
+          placeholder="Ingrese la contraseña"
+          formControlName="password"
+          matInput
+        />
+        <!-- <mat-error *ngIf="form.get('password').hasError('required')">
+          Campo password es requerido.
+        </mat-error> -->
+        <button
+          (click)="toggleVisibility()"
+          mat-icon-button
+          matSuffix
+          matTooltip="{{ !visible ? 'Ver contraseña' : 'Ocultar contraseña' }}"
+          type="button"
+        >
+          <mat-icon
+            *ngIf="visible"
+            [fontIcon]="icVisibility"
+            class="pr-9 text-am-main-blue-dark"
+          ></mat-icon>
+          <mat-icon
+            *ngIf="!visible"
+            [fontIcon]="icVisibilityOff"
+            class="pr-9 text-am-main-blue-dark"
+          ></mat-icon>
+        </button>
+      </mat-form-field>
+      <button
+        type="submit"
+        class="flex rounded-2xl h-11 button-filter items-center p-3 justify-center gap-2 bg-am-main-blue-dark"
+      >
+        Iniciar Sesión
+      </button>
+    </form>
+  </div>
+</div>
