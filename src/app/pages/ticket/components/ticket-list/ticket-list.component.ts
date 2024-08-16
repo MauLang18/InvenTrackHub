@@ -17,10 +17,10 @@ import {
 } from '../../../../shared/models/reusables/search-options.interface';
 import { Actions } from '../../../../shared/models/reusables/split-button.interface';
 import { componentSetting } from './ticket-list-config';
-import { TicketCreateComponent } from '../ticket-create/ticket-create.component';
 import { TicketResponse } from '../../models/ticket-response.interface';
 import Swal from 'sweetalert2';
 import { TicketService } from '../../services/ticket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-list',
@@ -42,6 +42,7 @@ import { TicketService } from '../../services/ticket.service';
 export class TicketListComponent implements OnInit {
   public ticketService = inject(TicketService);
   public _dialog = inject(MatDialog);
+  private _router = inject(Router);
 
   iconTicket$ = 'dashboard';
   component$: any;
@@ -122,25 +123,8 @@ export class TicketListComponent implements OnInit {
   }
 
   newTicket() {
-    // this._dialog
-    //   .open(TicketManagementComponent, {
-    //     disableClose: true,
-    //     width: '400px',
-    //     enterAnimationDuration: 200,
-    //     exitAnimationDuration: 200,
-    //     data: { mode: 'register' },
-    //   })
-    //   .afterClosed()
-    //   .subscribe((res) => {
-    //     if (res) {
-    //       this.setGetInputsTickets(true);
-    //     }
-    //   });
+    this._router.navigate(["/proceso-boleta/crear"]);
   }
-
-  // newSale() {
-  //   this._router.navigate(["/proceso-boleta/crear"]);
-  // }
 
   rowClick(rowClick: RowClick<TicketResponse>) {
     let action = rowClick.action;
@@ -148,7 +132,7 @@ export class TicketListComponent implements OnInit {
 
     switch (action) {
       case 'visibility':
-        this.ticketEdit(ticket);
+        this.ticketViewDetail(ticket);
         break;
       case 'download':
         this.ticketReport(ticket);
@@ -159,20 +143,8 @@ export class TicketListComponent implements OnInit {
     }
   }
 
-  ticketEdit(ticketData: TicketResponse) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = ticketData;
-
-    // let dialogRef = this._dialog.open(TicketManagementComponent, {
-    //   data: { dialogConfig, mode: 'edit' },
-    //   disableClose: true,
-    //   width: '400px',
-    //   enterAnimationDuration: 450,
-    //   exitAnimationDuration: 300,
-    // });
-    // dialogRef.afterClosed().subscribe((res) => {
-    //   this.setGetInputsTickets(true);
-    // });
+  ticketViewDetail(ticket: TicketResponse) {
+    this._router.navigate(["/proceso-ventas/crear", ticket.ticketId]);
   }
 
   ticketReport(ticket: TicketResponse) {
